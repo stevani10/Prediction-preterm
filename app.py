@@ -1,22 +1,21 @@
 # Auto-install requirements if missing (good for local dev)
-import subprocess
+import os
 import sys
+import subprocess
 
+# Install requirements.txt before importing anything else
 try:
-    import streamlit as st
-    import pandas as pd
-    import joblib
-    import shap
-    import matplotlib.pyplot as plt
-    import numpy as np
-except ModuleNotFoundError:
     subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
-    import streamlit as st
-    import pandas as pd
-    import joblib
-    import shap
-    import matplotlib.pyplot as plt
-    import numpy as np
+except Exception as e:
+    print(f"Failed to install requirements: {e}")
+
+# Now import the rest
+import streamlit as st
+import pandas as pd
+import joblib
+import shap
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Load Model
 @st.cache_resource
